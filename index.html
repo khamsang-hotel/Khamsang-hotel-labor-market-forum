@@ -3,206 +3,196 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Khamsang Hotel</title>
+  <title>Khamsang Hotel Feedback</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #f4f4f4;
       margin: 0;
       padding: 0;
-      background: #f9f9f9;
     }
-    header, nav, footer {
-      background: #333;
+    header, footer {
+      background-color: #333;
       color: white;
-      padding: 1em;
       text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
+      padding: 1rem;
     }
     main {
-      padding: 2em;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: white;
     }
-    section {
-      margin-bottom: 3em;
+    .stars {
+      direction: rtl;
+      display: inline-flex;
     }
-    .form-link, .feedback-form {
-      text-align: center;
-      margin-top: 20px;
+    .stars input {
+      display: none;
     }
-    .form-link a {
-      display: inline-block;
-      background: #333;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
+    .stars label {
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
     }
-    h2 {
-      text-align: center;
+    .stars input:checked ~ label,
+    .stars label:hover,
+    .stars label:hover ~ label {
+      color: #f5b301;
     }
-    form {
-      max-width: 500px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    input, textarea, select {
+    .review-form textarea {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      margin-top: 10px;
     }
-    button {
-      background-color: #333;
+    .review-form button {
+      background: #333;
       color: white;
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      margin-top: 10px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #555;
+    .reviews {
+      margin-top: 2rem;
     }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
+    .review {
+      background: #f9f9f9;
+      border-left: 4px solid #333;
+      padding: 10px 15px;
+      margin-bottom: 1rem;
     }
-    .feedback-list {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 1em;
+    .rating-summary {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
-    .feedback-entry {
-      background: #fff;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    .rating-bar {
+      height: 8px;
+      background: #ddd;
+      margin-top: 4px;
+      position: relative;
     }
-    .rating {
-      font-weight: bold;
-      color: #444;
+    .bar-fill {
+      background: #f5b301;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Khamsang Hotel Logo" style="height: 50px;">
-    <h1>Khamsang Hotel</h1>
-    <p>Delivering Excellence in Hospitality</p>
-  </header>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a href="#job">Job Application</a>
-    <a href="#institute">Institute Application</a>
-    <a href="#feedback">Feedback</a>
-  </nav>
+<header>
+  <h1>Khamsang Hotel Feedback</h1>
+  <p>We value your opinion!</p>
+</header>
 
-  <main>
-    <section id="home">
-      <h2>Welcome</h2>
-      <p>We are a dynamic hotel committed to exceptional guest experiences by partnering with institutions and seeking talented individuals to join our team.</p>
-    </section>
+<main>
+  <h2>Leave a Rating</h2>
+  <form id="feedbackForm" class="review-form">
+    <div class="stars">
+      <input type="radio" name="rating" id="star5" value="5"><label for="star5">&#9733;</label>
+      <input type="radio" name="rating" id="star4" value="4"><label for="star4">&#9733;</label>
+      <input type="radio" name="rating" id="star3" value="3"><label for="star3">&#9733;</label>
+      <input type="radio" name="rating" id="star2" value="2"><label for="star2">&#9733;</label>
+      <input type="radio" name="rating" id="star1" value="1"><label for="star1">&#9733;</label>
+    </div>
+    <br/>
+    <textarea id="reviewText" placeholder="Write your feedback..." required></textarea>
+    <br/>
+    <button type="submit">Submit Feedback</button>
+  </form>
 
-    <section id="about">
-      <h2>About Us</h2>
-      <p>Our goal is to create a skilled workforce that ensures top-notch service and satisfaction for every guest.</p>
-    </section>
+  <div id="summary" class="rating-summary" style="margin-top: 30px;">
+    <h3>Average Rating:</h3>
+    <div>
+      <div id="averageRating" style="font-size: 2rem;">0.0 ★</div>
+      <div id="ratingCounts"></div>
+    </div>
+  </div>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Phone: 17754628</p>
-      <p>Email: <a href="mailto:khamsanghotel907@gmail.com">khamsanghotel907@gmail.com</a></p>
-    </section>
+  <section class="reviews">
+    <h2>Customer Reviews</h2>
+    <div id="reviewsContainer"></div>
+  </section>
+</main>
 
-    <section id="job">
-      <h2>Job Application (Independent Candidates)</h2>
-      <div class="form-link">
-        <a href="https://forms.gle/K27eQ7RGRKAWzBpC7" target="_blank">Apply via Google Form</a>
+<footer>
+  <p>&copy; 2025 Khamsang Hotel</p>
+</footer>
+
+<script>
+const SHEETDB_API = 'https://sheetdb.io/api/v1/kzyvg1cvvcoqf';
+
+document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const rating = document.querySelector('input[name="rating"]:checked')?.value;
+  const review = document.getElementById('reviewText').value.trim();
+
+  if (!rating || !review) {
+    alert('Please select a rating and enter a review.');
+    return;
+  }
+
+  const data = {
+    rating: rating,
+    review: review,
+    date: new Date().toISOString().split('T')[0]
+  };
+
+  await fetch(SHEETDB_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ data })
+  });
+
+  document.getElementById('feedbackForm').reset();
+  loadReviews(); // Refresh reviews
+});
+
+async function loadReviews() {
+  const res = await fetch(SHEETDB_API);
+  const reviews = await res.json();
+
+  const container = document.getElementById('reviewsContainer');
+  container.innerHTML = '';
+
+  let sum = 0;
+  let counts = [0, 0, 0, 0, 0];
+
+  reviews.forEach(r => {
+    const rating = parseInt(r.rating);
+    sum += rating;
+    counts[rating - 1]++;
+
+    const div = document.createElement('div');
+    div.className = 'review';
+    div.innerHTML = `
+      <strong>${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</strong>
+      <p>${r.review}</p>
+      <small>${r.date}</small>
+    `;
+    container.appendChild(div);
+  });
+
+  const avg = (sum / reviews.length).toFixed(1);
+  document.getElementById('averageRating').textContent = `${avg} ★`;
+
+  const total = reviews.length;
+  const countsHTML = counts.map((c, i) => {
+    const percent = total ? ((c / total) * 100).toFixed(1) : 0;
+    return `
+      <div>
+        <strong>${5 - i} stars</strong>
+        <div class="rating-bar"><div class="bar-fill" style="width:${percent}%;"></div></div>
       </div>
-    </section>
+    `;
+  }).reverse().join('');
 
-    <section id="institute">
-      <h2>Training Institute Internship Application</h2>
-      <div class="form-link">
-        <a href="https://forms.gle/WD189RAAKN9iddyh6" target="_blank">Submit Internship Application</a>
-      </div>
-    </section>
+  document.getElementById('ratingCounts').innerHTML = countsHTML;
+}
 
-    <section id="feedback">
-      <h2>Feedback</h2>
-      <form id="feedback-form">
-        <select name="rating" required>
-          <option value="">Rating (1–5)</option>
-          <option value="1">1 ★</option>
-          <option value="2">2 ★★</option>
-          <option value="3">3 ★★★</option>
-          <option value="4">4 ★★★★</option>
-          <option value="5">5 ★★★★★</option>
-        </select>
-        <textarea name="message" placeholder="Your feedback..." required></textarea>
-        <button type="submit">Submit Feedback</button>
-      </form>
+loadReviews();
+</script>
 
-      <div class="feedback-list" id="feedback-list">
-        <h3 style="text-align:center;">Public Feedback</h3>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Khamsang Hotel. All rights reserved.</p>
-  </footer>
-
-  <script>
-    const form = document.getElementById('feedback-form');
-    const list = document.getElementById('feedback-list');
-
-    const SHEETDB_API = 'https://sheetdb.io/api/v1/YOUR_API_ID'; // Replace with your actual API endpoint
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(form).entries());
-      data.date = new Date().toISOString().split('T')[0];
-
-      const res = await fetch(SHEETDB_API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data })
-      });
-
-      if (res.ok) {
-        alert("Thank you for your feedback!");
-        form.reset();
-        loadFeedback();
-      } else {
-        alert("There was an error submitting your feedback.");
-      }
-    });
-
-    async function loadFeedback() {
-      const res = await fetch(SHEETDB_API);
-      const feedbacks = await res.json();
-      list.innerHTML = '<h3 style="text-align:center;">Public Feedback</h3>' + feedbacks.map(entry => `
-        <div class="feedback-entry">
-          <p><strong>${entry.date}</strong></p>
-          <p class="rating">Rating: ${'★'.repeat(entry.rating)}</p>
-          <p>${entry.message}</p>
-        </div>
-      `).join('');
-    }
-
-    loadFeedback();
-  </script>
 </body>
 </html>
