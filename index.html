@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Khamsang Hotel</title>
   <style>
     body {
@@ -74,6 +74,22 @@
       display: block;
       margin-top: 10px;
     }
+    .feedback-list {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 1em;
+    }
+    .feedback-entry {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .rating {
+      font-weight: bold;
+      color: #444;
+    }
   </style>
 </head>
 <body>
@@ -125,35 +141,69 @@
 
     <section id="feedback">
       <h2>Feedback</h2>
-      <p style="text-align:center;">We value your feedback! Please let us know about your experience.</p>
-      <form action="https://formspree.io/f/mqaqnryl" method="POST">
+      <form id="feedback-form">
         <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="_replyto" placeholder="Your Email" required>
-
-        <label for="rating">Rating (1 = Poor, 5 = Excellent):</label>
-        <select name="rating" id="rating" required>
-          <option value="">Choose rating</option>
+        <select name="rating" required>
+          <option value="">Rating (1–5)</option>
           <option value="1">1 ★</option>
           <option value="2">2 ★★</option>
           <option value="3">3 ★★★</option>
           <option value="4">4 ★★★★</option>
           <option value="5">5 ★★★★★</option>
         </select>
-
-        <label for="visit-date">Date of Visit:</label>
-        <input type="date" id="visit-date" name="visit_date" required>
-
-        <textarea name="message" rows="5" placeholder="Your Feedback" required></textarea>
-
-        <input type="hidden" name="_redirect" value="https://yourdomain.com/thank-you.html">
-
+        <textarea name="message" placeholder="Your feedback..." required></textarea>
         <button type="submit">Submit Feedback</button>
       </form>
+
+      <div class="feedback-list" id="feedback-list">
+        <h3 style="text-align:center;">Public Feedback</h3>
+      </div>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 Khamsang Hotel. All rights reserved.</p>
   </footer>
+
+  <script>
+    const form = document.getElementById('feedback-form');
+    const list = document.getElementById('feedback-list');
+
+    const SHEETDB_API = 'https://sheetdb.io/api/v1/YOUR_API_ID'; // Replace with your SheetDB API endpoint
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.date = new Date().toISOString().split('T')[0];
+
+      const res = await fetch(SHEETDB_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data })
+      });
+
+      if (res.ok) {
+        alert("Thank you for your feedback!");
+        form.reset();
+        loadFeedback();
+      } else {
+        alert("There was an error submitting your feedback.");
+      }
+    });
+
+    async function loadFeedback() {
+      const res = await fetch(SHEETDB_API);
+      const feedbacks = await res.json();
+      list.innerHTML = '<h3 style="text-align:center;">Public Feedback</h3>' + feedbacks.map(entry => `
+        <div class="feedback-entry">
+          <p><strong>${entry.name}</strong> (${entry.date})</p>
+          <p class="rating">Rating: ${'★'.repeat(entry.rating)}</p>
+          <p>${entry.message}</p>
+        </div>
+      `).join('');
+    }
+
+    loadFeedback();
+  </script>
 </body>
 </html>
