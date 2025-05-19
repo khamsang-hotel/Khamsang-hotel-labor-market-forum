@@ -5,33 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Khamsang Hotel</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-    }
-    header, nav, footer {
-      background: #333;
-      color: white;
-      padding: 1em;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-    }
-    main {
-      padding: 2em;
-    }
-    section {
-      margin-bottom: 3em;
-    }
-    .form-link, .feedback-form {
-      text-align: center;
-      margin-top: 20px;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
+    header, nav, footer { background: #333; color: white; padding: 1em; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    main { padding: 2em; }
+    section { margin-bottom: 3em; }
+    .form-link, .feedback-form { text-align: center; margin-top: 20px; }
     .form-link a {
       display: inline-block;
       background: #333;
@@ -40,9 +19,7 @@
       border-radius: 5px;
       text-decoration: none;
     }
-    h2 {
-      text-align: center;
-    }
+    h2 { text-align: center; }
     form {
       max-width: 500px;
       margin: 0 auto;
@@ -51,7 +28,7 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    input, textarea, select {
+    input, textarea {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -68,11 +45,6 @@
     }
     button:hover {
       background-color: #555;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
     }
   </style>
 </head>
@@ -129,25 +101,7 @@
       <form action="https://formspree.io/f/mqaqnryl" method="POST">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="_replyto" placeholder="Your Email" required>
-
-        <label for="rating">Rating (1 = Poor, 5 = Excellent):</label>
-        <select name="rating" id="rating" required>
-          <option value="">Choose rating</option>
-          <option value="1">1 ★</option>
-          <option value="2">2 ★★</option>
-          <option value="3">3 ★★★</option>
-          <option value="4">4 ★★★★</option>
-          <option value="5">5 ★★★★★</option>
-        </select>
-
-        <label for="visit-date">Date of Visit:</label>
-        <input type="date" id="visit-date" name="visit_date" required>
-
         <textarea name="message" rows="5" placeholder="Your Feedback" required></textarea>
-
-        <!-- Optional redirect URL after submission -->
-        <input type="hidden" name="_redirect" value="https://yourdomain.com/thank-you.html">
-
         <button type="submit">Submit Feedback</button>
       </form>
     </section>
