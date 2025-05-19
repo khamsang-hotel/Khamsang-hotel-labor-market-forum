@@ -142,7 +142,6 @@
     <section id="feedback">
       <h2>Feedback</h2>
       <form id="feedback-form">
-        <input type="text" name="name" placeholder="Your Name" required>
         <select name="rating" required>
           <option value="">Rating (1–5)</option>
           <option value="1">1 ★</option>
@@ -169,7 +168,7 @@
     const form = document.getElementById('feedback-form');
     const list = document.getElementById('feedback-list');
 
-    const SHEETDB_API = 'https://sheetdb.io/api/v1/YOUR_API_ID'; // Replace with your SheetDB API endpoint
+    const SHEETDB_API = 'https://sheetdb.io/api/v1/YOUR_API_ID'; // Replace with your actual API endpoint
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -196,7 +195,7 @@
       const feedbacks = await res.json();
       list.innerHTML = '<h3 style="text-align:center;">Public Feedback</h3>' + feedbacks.map(entry => `
         <div class="feedback-entry">
-          <p><strong>${entry.name}</strong> (${entry.date})</p>
+          <p><strong>${entry.date}</strong></p>
           <p class="rating">Rating: ${'★'.repeat(entry.rating)}</p>
           <p>${entry.message}</p>
         </div>
